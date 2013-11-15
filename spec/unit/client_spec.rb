@@ -12,33 +12,8 @@ describe NationBuilder::Client do
 
   describe "#people" do
     let(:client) { NationBuilder::Client.new("1234", "5678", "0000", "http://abeforprez.nbuild.dev/")}
-
-    it "retrieves a list of people" do
-      people_list = {
-        "results" => [
-          {"id" => 5, "first_name" => "Jim", "last_name" => "Gilliam", "email" => "jim@gilliam.com"}
-        ]
-      }
-
-      # XXX TODO: better testing? this should not stub an internal method... I think.
-      # though perhaps we can do integration testing of this specific method elsewhere...
-      client.stub(:get).with('people', {}).and_return(people_list)
-
-      client.people.first.first_name.should == "Jim"
-    end
-
-    it "paginates"
-
-    it "handles authentication errors" do
-      pending
-      rejection = {
-                    "code" => "unauthorized",
-                    "message" => "You are not authorized to access this content. Your access token may be missing. The resource owner also may not have a permission level sufficient to grant access."
-                  }
-      token.should_receive(:get).with("/api/v1/people") do |thing|
-        #thing...
-      end
-      client.stub(:token => token)
+    it "is a people controller" do
+      client.people.should be_a NationBuilder::PeopleController
     end
   end
 end

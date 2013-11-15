@@ -1,28 +1,23 @@
 require "nation_builder/version"
-require 'oauth2'
-require 'nation_builder/person'
+require 'nation_builder/oauth_client'
+require 'nation_builder/people_controller'
+
 module NationBuilder
   class Client
+
     def initialize(consumer_key, consumer_secret, access_token, nation_url)
-      @client = OAuth2::Client.new(consumer_key, consumer_secret, :site => nation_url)
-      @token = OAuth2::AccessToken.new(@client, access_token)
+      @oauth_client = OauthClient.new(consumer_key, consumer_secret, access_token, nation_url)
     end
 
-    def people(opts={})
-      get('people', opts)["results"].map { |person_data| Person.from_hash(person_data) }
+    def people
+      @people_endpoint ||= PeopleController.new(oauth_client)
+    end
+
+    def user_agent
+      @user_agent ||= "NationBuilder Ruby Gem #{NationBuilder::VERSION}"
     end
 
     private
-    def client; @client; end
-    def token; @token; end
-
-    def get(endpoint, opts={})
-      response = token.get("/api/v1/#{endpoint}", :headers => headers, :params => opts)
-      JSON.parse(response.body)
-    end
-
-    def headers
-      { "Accept" => "application/json", "Content-Type" => "application/json" }
-    end
+    def oauth_client; @oauth_client; end
   end
 end
