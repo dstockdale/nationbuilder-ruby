@@ -17,7 +17,7 @@ module NationBuilder::Model
     end
 
     def to_hash
-      self.attributes
+      self.attributes.stringify_keys
     end
 
     def to_model
