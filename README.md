@@ -22,7 +22,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'nation_builder/client'
+
+client = NationBuilder::Client.new
+
+# TBC
+```
 
 ## Contributing
 
