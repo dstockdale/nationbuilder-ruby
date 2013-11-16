@@ -11,14 +11,15 @@ describe NationBuilder::PeopleController do
       ]
     }
 
-    # XXX TODO: better testing? this should not stub an internal method... I think.
-    # though perhaps we can do integration testing of this specific method elsewhere...
     oauth_client.stub(:get).with('people', {}).and_return(people_list)
 
     people.list.first.first_name.should == "Jim"
   end
 
-  it "paginates"
+  it "passes parameters through to API endpoint" do
+    oauth_client.should_receive(:get).with('people', {page: 2}).and_return({"results" => []})
+    people.list(page: 2)
+  end
 
   it "handles authentication errors" do
     pending
