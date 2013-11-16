@@ -15,6 +15,15 @@ module NationBuilder
       @clazz.new(oauth_client.get("#{@endpoint_name}/#{id}")[singular])
     end
 
+    def save(object)
+      if object.id.present?
+        oauth_client.put(@endpoint_name, object.to_hash)
+      else
+        updated_values = oauth_client.post(@endpoint_name, object.to_hash.reject{|k,v| k == :id})["person"]
+        object.attributes = updated_values
+      end
+    end
+
     private
     def oauth_client; @oauth_client; end
   end
