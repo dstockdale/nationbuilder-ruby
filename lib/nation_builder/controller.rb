@@ -21,7 +21,7 @@ module NationBuilder
         else
           oauth_client.post(@endpoint_name, object.to_hash.reject{|k,v| k == :id})
         end
-      object.attributes = response["person"]
+      object.attributes = response[singular]
     end
 
     private
