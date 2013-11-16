@@ -4,21 +4,37 @@ describe NationBuilder::PeopleController do
   let(:oauth_client) { MockOauthClient.new }
   let(:people) { NationBuilder::PeopleController.new(oauth_client) }
 
-  it "retrieves a list of people" do
-    people_list = {
-      "results" => [
-        {"id" => 5, "first_name" => "Jim", "last_name" => "Gilliam", "email" => "jim@gilliam.com"}
-      ]
-    }
+  describe "#list" do
+    it "retrieves a list of people" do
+      people_list = {
+        "results" => [
+          {"id" => 5, "first_name" => "Jim", "last_name" => "Gilliam", "email" => "jim@gilliam.com"}
+        ]
+      }
 
-    oauth_client.stub(:get).with('people', {}).and_return(people_list)
+      oauth_client.stub(:get).with('people', {}).and_return(people_list)
 
-    people.list.first.first_name.should == "Jim"
+      result = people.list.first
+      result.first_name.should == "Jim"
+      result.last_name.should == "Gilliam"
+    end
+
+    it "passes parameters through to API endpoint" do
+      oauth_client.should_receive(:get).with('people', {page: 2}).and_return({"results" => []})
+      people.list(page: 2)
+    end
   end
 
-  it "passes parameters through to API endpoint" do
-    oauth_client.should_receive(:get).with('people', {page: 2}).and_return({"results" => []})
-    people.list(page: 2)
+  describe "#find" do
+    it "retrieves a single person" do
+      oauth_client.should_receive(:get).with('people/5').and_return({"person" => {}})
+      people.find(5)
+    end
+  end
+
+  describe "#save" do
+    it "saves a person" do
+    end
   end
 
   it "handles authentication errors" do

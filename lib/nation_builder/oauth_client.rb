@@ -1,6 +1,7 @@
 require 'oauth2'
+require 'json'
 
-# handles low-level communication with REST endpoints
+# handles low-level communication with REST endpoints (think: "GET", "POST", etc)
 # is opinionated to match NB REST assumptions: JSON, certain kinds of error handling, etc.
 module NationBuilder
   class OauthClient
@@ -10,8 +11,11 @@ module NationBuilder
     end
 
     def get(endpoint, opts={})
-      response = @token.get("/api/v1/#{endpoint}", :headers => { "Accept" => "application/json", "Content-Type" => "application/json" }, :params => opts)
+      response = token.get("/api/v1/#{endpoint}", :headers => { "Accept" => "application/json", "Content-Type" => "application/json" }, :params => opts)
       JSON.parse(response.body)
     end
+
+    private
+    def token; @token; end
   end
 end
