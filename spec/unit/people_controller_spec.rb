@@ -44,6 +44,19 @@ describe NationBuilder::PeopleController do
 
       person.id.should == 5
     end
+
+    it "saves an existing person, updating any attributes which changed (e.g. as a result of server-side callbacks)" do
+      person = NationBuilder::Model::Person.new(:id => 10, :first_name => "Steve", :last_name => "Jobs")
+
+      oauth_client.should_receive(:put).
+        with('people', {:id => 10, :first_name=>"Steve", :last_name=>"Jobs", :email=>nil}).
+        and_return({"person" => {:id => 10, :first_name => "Steve", :last_name => "Jobs", :email=>"steve@apple.com"}})
+
+      people_controller.save(person)
+
+      person.id.should == 10
+      person.email.should == "steve@apple.com"
+    end
   end
 
   # it "handles authentication errors" do

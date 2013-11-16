@@ -16,12 +16,12 @@ module NationBuilder
     end
 
     def save(object)
-      if object.id.present?
-        oauth_client.put(@endpoint_name, object.to_hash)
-      else
-        updated_values = oauth_client.post(@endpoint_name, object.to_hash.reject{|k,v| k == :id})["person"]
-        object.attributes = updated_values
-      end
+      response = if object.id.present?
+          oauth_client.put(@endpoint_name, object.to_hash)
+        else
+          oauth_client.post(@endpoint_name, object.to_hash.reject{|k,v| k == :id})
+        end
+      object.attributes = response["person"]
     end
 
     private
