@@ -15,6 +15,17 @@ module NationBuilder
       JSON.parse(response.body)
     end
 
+    def put(endpoint, opts={})
+      response = token.put("/api/v1/#{endpoint}", :headers => { "Accept" => "application/json", "Content-Type" => "application/json" }, :body => opts.to_json)
+      JSON.parse(response.body)
+    end
+
+    def post(endpoint, opts={})
+      response = token.post("/api/v1/#{endpoint}", :headers => { "Accept" => "application/json", "Content-Type" => "application/json" }, :body => opts.to_json)
+      JSON.parse(response.body)
+    end
+
+
     private
     def token; @token; end
   end

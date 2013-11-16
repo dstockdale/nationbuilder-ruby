@@ -17,9 +17,9 @@ module NationBuilder
 
     def save(object)
       response = if object.id.present?
-          oauth_client.put(@endpoint_name, object.to_hash)
+          oauth_client.put(@endpoint_name, singular => object.to_hash)
         else
-          oauth_client.post(@endpoint_name, object.to_hash.reject{|k,v| k == :id})
+          oauth_client.post(@endpoint_name, singular => object.to_hash.reject{|k,v| k == :id})
         end
       object.attributes = response[singular]
     end

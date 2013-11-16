@@ -37,7 +37,7 @@ describe NationBuilder::PeopleController do
       person = NationBuilder::Model::Person.new(:first_name => "Steve", :last_name => "Gutenberg")
 
       oauth_client.should_receive(:post).
-        with('people', {:first_name=>"Steve", :last_name=>"Gutenberg", :email=>nil}).
+        with('people', "person" => {:first_name=>"Steve", :last_name=>"Gutenberg", :email=>nil}).
         and_return({"person" => {:id => 5, :first_name => "Steve", :last_name => "Gutenberg", :email=>nil}})
 
       people_controller.save(person)
@@ -49,7 +49,7 @@ describe NationBuilder::PeopleController do
       person = NationBuilder::Model::Person.new(:id => 10, :first_name => "Steve", :last_name => "Jobs")
 
       oauth_client.should_receive(:put).
-        with('people', {:id => 10, :first_name=>"Steve", :last_name=>"Jobs", :email=>nil}).
+        with('people', "person" => {:id => 10, :first_name=>"Steve", :last_name=>"Jobs", :email=>nil}).
         and_return({"person" => {:id => 10, :first_name => "Steve", :last_name => "Jobs", :email=>"steve@apple.com"}})
 
       people_controller.save(person)
