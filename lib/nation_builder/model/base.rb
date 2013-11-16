@@ -5,19 +5,10 @@ module NationBuilder::Model
   class Base
     extend ActiveModel::Naming
     include ActiveModel::Conversion
-    include Virtus
-
-    def self.from_hash(hash)
-      # one-to-one mapping from hash
-      new.tap do |object|
-        self.attribute_set.each do |attribute|
-          object[attribute.name] = hash.fetch(attribute.name.to_s)
-        end
-      end
-    end
+    include Virtus.model
 
     def to_hash
-      self.attributes.stringify_keys
+      self.attributes
     end
 
     def to_model

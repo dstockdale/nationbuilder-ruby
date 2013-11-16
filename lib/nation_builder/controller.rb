@@ -7,11 +7,11 @@ module NationBuilder
     end
 
     def list(opts={})
-      oauth_client.get(plural, opts)["results"].map { |data| @clazz.from_hash(data) }
+      oauth_client.get(plural, opts)["results"].map { |data| @clazz.new(data) }
     end
 
     def find(id)
-      @clazz.from_hash(oauth_client.get("#{plural}/#{id}")[singular])
+      @clazz.new(oauth_client.get("#{plural}/#{id}")[singular])
     end
 
     private
