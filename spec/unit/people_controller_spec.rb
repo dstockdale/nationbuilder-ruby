@@ -1,5 +1,6 @@
 require_relative '../spec_helper.rb'
 
+# XXX TODO: most of these tests could be factored into a "controller spec" which applies to all types
 describe NationBuilder::PeopleController do
   let(:oauth_client) { MockOauthClient.new }
   let(:people_controller) { NationBuilder::PeopleController.new(oauth_client) }
@@ -34,11 +35,11 @@ describe NationBuilder::PeopleController do
 
   describe "#save" do
     it "saves a new person and sets their ID" do
-      person = NationBuilder::Model::Person.new(:first_name => "Steve", :last_name => "Gutenberg")
+      person = NationBuilder::Model::Person.new(:first_name => "Steve")
 
       oauth_client.should_receive(:post).
-        with('people', "person" => {:first_name=>"Steve", :last_name=>"Gutenberg", :email=>nil}).
-        and_return({"person" => {:id => 5, :first_name => "Steve", :last_name => "Gutenberg", :email=>nil}})
+        with('people', "person" => hash_including(:first_name=>"Steve")).
+        and_return({"person" => {:id => 5, :first_name=>"Steve"}})
 
       people_controller.save(person)
 
@@ -46,11 +47,11 @@ describe NationBuilder::PeopleController do
     end
 
     it "saves an existing person, updating any attributes which changed (e.g. as a result of server-side callbacks)" do
-      person = NationBuilder::Model::Person.new(:id => 10, :first_name => "Steve", :last_name => "Jobs")
+      person = NationBuilder::Model::Person.new(:id => 10, :first_name => "Steve")
 
       oauth_client.should_receive(:put).
-        with('people', "person" => {:id => 10, :first_name=>"Steve", :last_name=>"Jobs", :email=>nil}).
-        and_return({"person" => {:id => 10, :first_name => "Steve", :last_name => "Jobs", :email=>"steve@apple.com"}})
+        with('people', "person" => hash_including(:id => 10, :first_name=>"Steve")).
+        and_return({"person" => {:id => 10, :first_name => "Steve", :email=>"steve@apple.com"}})
 
       people_controller.save(person)
 
