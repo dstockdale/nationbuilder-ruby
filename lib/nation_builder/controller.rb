@@ -22,6 +22,7 @@ module NationBuilder
           oauth_client.post(@endpoint_name, singular => object.to_hash.reject{|k,v| k == :id})
         end
       object.attributes = response[singular]
+      object.errors.clear
       true
     rescue NationBuilder::OauthClient::ValidationError => e
       # set error properties on model

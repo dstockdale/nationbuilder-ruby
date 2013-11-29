@@ -68,6 +68,18 @@ describe NationBuilder::PeopleController do
         person.errors.full_messages.should include "email 'taken@email.com' is taken"
       }.to_not raise_error
     end
+
+    it "clears validation errors on success" do
+      person = NationBuilder::Model::Person.new(:id => 10, :first_name => "Steve")
+      person.errors.add(:email, "is bogus")
+
+      oauth_client.should_receive(:put).
+        and_return({"person" => {:id => 10, :first_name=>"Steve"}})
+
+      people_controller.save(person)
+
+      person.errors.should be_empty
+    end
   end
 
   # it "handles authentication errors" do
