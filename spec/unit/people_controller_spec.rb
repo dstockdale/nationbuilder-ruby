@@ -64,7 +64,7 @@ describe NationBuilder::PeopleController do
       oauth_client.should_receive(:put).and_raise(NationBuilder::OauthClient::ValidationError.new({"email"=>[{"type"=>"taken"}]}))
 
       expect {
-        people_controller.save(person)
+        people_controller.save(person).should be_false
         person.errors.full_messages.should include "email 'taken@email.com' is taken"
       }.to_not raise_error
     end
