@@ -58,6 +58,16 @@ describe NationBuilder::PeopleController do
       person.id.should == 10
       person.email.should == "steve@apple.com"
     end
+
+    it "returns false on validation errors" do
+      person = NationBuilder::Model::Person.new(:id => 10, :first_name => "Steve", :email => 'taken@email.com')
+      oauth_client.should_receive(:put).and_raise(NationBuilder::OauthClient::ValidationError.new({"email"=>[{"type"=>"taken"}]}))
+
+      expect {
+        people_controller.save(person)
+        person.errors.full_messages.should include "email 'taken@email.com' is taken"
+      }.to_not raise_error
+    end
   end
 
   # it "handles authentication errors" do

@@ -6,6 +6,12 @@ module NationBuilder::Model
     extend ActiveModel::Naming
     include ActiveModel::Conversion
     include Virtus.model
+    attr_reader   :errors
+
+    def initialize(*args)
+      @errors = ActiveModel::Errors.new(self)
+      super
+    end
 
     def to_hash
       self.attributes
@@ -17,6 +23,10 @@ module NationBuilder::Model
 
     def to_param
       id
+    end
+
+    def self.human_attribute_name(col, opts={})
+      col.to_s
     end
 
     def persisted?
