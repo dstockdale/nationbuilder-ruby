@@ -13,6 +13,18 @@ module NationBuilder
       end
     end
 
+    class UnknownError < Exception
+      attr_accessor :errors
+      def initialize(errors)
+        if errors.is_a?(Hash)
+          super(error['message'])
+          @errors = error
+        else
+          super(error)
+        end
+      end
+    end
+
     def initialize(consumer_key, consumer_secret, access_token, nation_url)
       client = OAuth2::Client.new(consumer_key, consumer_secret, :site => nation_url)
       @token = OAuth2::AccessToken.new(client, access_token)
@@ -45,7 +57,19 @@ module NationBuilder
       begin
         yield
       rescue OAuth2::Error => e
-        raise ValidationError.new(e.response.parsed['validation_errors'])
+        if e.response.parsed
+          case e.response.parsed['code']
+          when "validation_failed"
+            raise ValidationError.new(e.response.parsed['validation_errors'])
+          else
+            raise UnknownError.new(e.response.parsed)
+          end
+        else
+          #binding.pry
+          puts "Caught #{e.message}: #{e.response.inspect}"
+          #raise e
+          return {}
+        end
       end
     end
     def token; @token; end

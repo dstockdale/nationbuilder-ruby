@@ -50,7 +50,7 @@ describe NationBuilder::PeopleController do
       person = NationBuilder::Model::Person.new(:id => 10, :first_name => "Steve")
 
       oauth_client.should_receive(:put).
-        with('people', "person" => hash_including(:id => 10, :first_name=>"Steve")).
+        with('people/10', "person" => hash_including(:id => 10, :first_name=>"Steve")).
         and_return({"person" => {:id => 10, :first_name => "Steve", :email=>"steve@apple.com"}})
 
       people_controller.save(person)

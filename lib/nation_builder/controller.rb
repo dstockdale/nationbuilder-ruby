@@ -17,13 +17,18 @@ module NationBuilder
 
     def save(object)
       response = if object.id.present?
-          oauth_client.put(@endpoint_name, singular => object.to_hash)
+          oauth_client.put("#{@endpoint_name}/#{object.id}", singular => object.to_hash)
         else
           oauth_client.post(@endpoint_name, singular => object.to_hash.reject{|k,v| k == :id})
         end
-      object.attributes = response[singular]
-      object.errors.clear
-      true
+      if response && response[singular]
+        object.attributes = response[singular]
+        object.errors.clear
+        return true
+      else
+        object.errors.add(:global, "Empty response")
+        return false
+      end
     rescue NationBuilder::OauthClient::ValidationError => e
       # set error properties on model
       e.errors.each do |field, errors|
