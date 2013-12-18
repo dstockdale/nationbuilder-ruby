@@ -17,10 +17,10 @@ module NationBuilder
       attr_accessor :errors
       def initialize(errors)
         if errors.is_a?(Hash)
-          super(error['message'])
-          @errors = error
+          super(errors['message'])
+          @errors = errors
         else
-          super(error)
+          super(errors)
         end
       end
     end

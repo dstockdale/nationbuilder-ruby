@@ -5,6 +5,7 @@ module NationBuilder::Model
   class Base
     extend ActiveModel::Naming
     include ActiveModel::Conversion
+    include ActiveModel::Validations
     include Virtus.model
     attr_reader   :errors
 

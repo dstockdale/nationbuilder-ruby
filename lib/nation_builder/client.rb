@@ -1,6 +1,8 @@
 require "nation_builder/version"
 require 'nation_builder/oauth_client'
 require 'nation_builder/people_controller'
+require 'nation_builder/events_controller'
+require 'nation_builder/sites_controller'
 
 module NationBuilder
   class Client
@@ -10,7 +12,11 @@ module NationBuilder
     end
 
     def people
-      @people_endpoint ||= PeopleController.new(oauth_client)
+      @people_endpoint ||= NationBuilder::PeopleController.new(oauth_client)
+    end
+
+    def sites
+      @sites_endpoint ||= NationBuilder::SitesController.new(oauth_client)
     end
 
     def user_agent
