@@ -1,5 +1,7 @@
-module NationBuilder::Model
+module Nationbuilder::Model
+
   class PointOfContact < Base
+
     attribute :name, String,
       sample: "John Doe",
       description: "The contact's name"
@@ -23,5 +25,7 @@ module NationBuilder::Model
       description: "whether to publish the contact email address"
 
     validates_presence_of :name, :email
+
   end
+
 end

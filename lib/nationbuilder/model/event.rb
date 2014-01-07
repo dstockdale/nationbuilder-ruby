@@ -1,13 +1,7 @@
-require 'nation_builder/model/base'
-require 'nation_builder/model/page_base'
-require 'nation_builder/model/point_of_contact'
-require 'nation_builder/model/rsvp_form_settings'
-require 'nation_builder/model/venue'
-require 'nation_builder/model/event_shift'
-require 'nation_builder/model/autoresponse_details'
+module Nationbuilder::Model
 
-module NationBuilder::Model
   class Event < PageBase
+
     attribute :intro, String,
       accessibility: :optional,
       sample: "Lets change the world!",
@@ -59,4 +53,5 @@ module NationBuilder::Model
       description: "shifts to display on the RSVP form"
 
   end
+
 end

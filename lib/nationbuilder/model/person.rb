@@ -1,6 +1,5 @@
-require 'nation_builder/model/base'
+module Nationbuilder::Model
 
-module NationBuilder::Model
   class Person < Base
 
     attribute :id, Integer
@@ -11,5 +10,7 @@ module NationBuilder::Model
     def name
       [first_name, last_name].compact.join(" ")
     end
+
   end
+
 end

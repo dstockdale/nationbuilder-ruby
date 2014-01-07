@@ -1,3 +1,0 @@
-module NationBuilder
-  VERSION = "0.0.1"
-end

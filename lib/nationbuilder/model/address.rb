@@ -1,4 +1,5 @@
-module NationBuilder::Model
+module Nationbuilder::Model
+
   class Address < Base
 
     attribute :address1, String,
@@ -25,5 +26,7 @@ module NationBuilder::Model
 
     attribute :lng, Decimal,
       sample: -118.25
+
   end
+
 end

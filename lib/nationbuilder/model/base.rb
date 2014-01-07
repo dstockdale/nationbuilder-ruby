@@ -1,8 +1,7 @@
-require 'active_model'
-require 'virtus'
+module Nationbuilder::Model
 
-module NationBuilder::Model
   class Base
+
     extend ActiveModel::Naming
     include ActiveModel::Conversion
     include ActiveModel::Validations
@@ -35,4 +34,5 @@ module NationBuilder::Model
     end
 
   end
+
 end

@@ -1,5 +1,7 @@
-module NationBuilder::Model
+module Nationbuilder::Model
+
   class EventShift < Base
+
     attribute :id, Integer
 
     attribute :start_time, Time,
@@ -13,5 +15,7 @@ module NationBuilder::Model
     attribute :goal, Integer,
       sample: 100,
       description: "The number of volunteers to seek for the shift"
+
   end
+
 end

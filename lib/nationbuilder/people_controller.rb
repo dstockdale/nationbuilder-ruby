@@ -1,10 +1,9 @@
-require 'nation_builder/controller'
-require 'nation_builder/model/person'
+module Nationbuilder
 
-module NationBuilder
   class PeopleController < Controller
+
     def initialize(oauth_client)
-      super(oauth_client, "people", NationBuilder::Model::Person)
+      super(oauth_client, "people", Nationbuilder::Model::Person)
     end
 
     def singular
@@ -14,5 +13,7 @@ module NationBuilder
     def plural
       "people"
     end
+
   end
+
 end

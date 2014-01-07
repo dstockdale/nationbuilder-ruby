@@ -1,7 +1,7 @@
-require 'nation_builder/model/base'
+module Nationbuilder::Model
 
-module NationBuilder::Model
   class PageBase < Base
+
     STATUSES = %w(drafted published)
 
     attribute :id, Integer
@@ -67,5 +67,7 @@ module NationBuilder::Model
 
     validates_presence_of :site_slug, :name, :status
     validates_inclusion_of :status, in: STATUSES
+
   end
+
 end

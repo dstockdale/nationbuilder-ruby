@@ -1,11 +1,11 @@
-require 'nation_builder/controller'
-require 'nation_builder/model/event'
+module Nationbuilder
 
-module NationBuilder
   class EventsController < Controller
+
     attr_accessor :site_slug
+
     def initialize(oauth_client, site_slug)
-      super(oauth_client, "sites/#{site_slug}/pages/events", NationBuilder::Model::Event)
+      super(oauth_client, "sites/#{site_slug}/pages/events", Nationbuilder::Model::Event)
       @site_slug = site_slug
     end
 
@@ -16,5 +16,7 @@ module NationBuilder
     def plural
       "events"
     end
+
   end
+
 end

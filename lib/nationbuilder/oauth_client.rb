@@ -1,20 +1,22 @@
-require 'oauth2'
-require 'json'
+module Nationbuilder
 
-# handles low-level communication with REST endpoints (think: "GET", "POST", etc)
-# is opinionated to match NB REST assumptions: JSON, certain kinds of error handling, etc.
-module NationBuilder
   class OauthClient
+
     class ValidationError < Exception
+
       attr_accessor :errors
+
       def initialize(errors)
         super("Validation error")
         @errors = errors
       end
+
     end
 
     class UnknownError < Exception
+
       attr_accessor :errors
+
       def initialize(errors)
         if errors.is_a?(Hash)
           super(errors['message'])
@@ -23,6 +25,7 @@ module NationBuilder
           super(errors)
         end
       end
+
     end
 
     def initialize(consumer_key, consumer_secret, access_token, nation_url)
@@ -51,8 +54,8 @@ module NationBuilder
      end
     end
 
-
     private
+
     def with_rescue
       begin
         yield
@@ -74,4 +77,5 @@ module NationBuilder
     end
     def token; @token; end
   end
+
 end

@@ -1,6 +1,9 @@
-module NationBuilder::Model
+module Nationbuilder::Model
+
   class RSVPFormSettings < Base
+
     FORM_FIELD_OPTIONS = %w(required hidden optional)
+
     attribute :phone, String,
       sample: "required",
       description: "Whether to ask for a phone number.  hidden if not asked, required if it is a required field, and optional if it is an optional field."
@@ -19,5 +22,7 @@ module NationBuilder::Model
 
     validates_inclusion_of :phone, in: FORM_FIELD_OPTIONS
     validates_inclusion_of :address, in: FORM_FIELD_OPTIONS
+
   end
+
 end

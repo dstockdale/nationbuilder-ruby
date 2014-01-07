@@ -1,8 +1,10 @@
-require 'nation_builder/model/base'
+module Nationbuilder::Model
 
-module NationBuilder::Model
   class Site < Base
+
     attribute :id, Integer
     attribute :slug, String
+
   end
+
 end
