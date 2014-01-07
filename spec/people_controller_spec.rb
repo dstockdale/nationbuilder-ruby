@@ -1,9 +1,9 @@
-require_relative '../spec_helper.rb'
+require 'spec_helper'
 
 # XXX TODO: most of these tests could be factored into a "controller spec" which applies to all types
-describe NationBuilder::PeopleController do
+describe Nationbuilder::PeopleController do
   let(:oauth_client) { MockOauthClient.new }
-  let(:people_controller) { NationBuilder::PeopleController.new(oauth_client) }
+  let(:people_controller) { Nationbuilder::PeopleController.new(oauth_client) }
 
   describe "#list" do
     it "retrieves a list of people" do
@@ -35,7 +35,7 @@ describe NationBuilder::PeopleController do
 
   describe "#save" do
     it "saves a new person and sets their ID" do
-      person = NationBuilder::Model::Person.new(:first_name => "Steve")
+      person = Nationbuilder::Model::Person.new(:first_name => "Steve")
 
       oauth_client.should_receive(:post).
         with('people', "person" => hash_including(:first_name=>"Steve")).
@@ -47,7 +47,7 @@ describe NationBuilder::PeopleController do
     end
 
     it "saves an existing person, updating any attributes which changed (e.g. as a result of server-side callbacks)" do
-      person = NationBuilder::Model::Person.new(:id => 10, :first_name => "Steve")
+      person = Nationbuilder::Model::Person.new(:id => 10, :first_name => "Steve")
 
       oauth_client.should_receive(:put).
         with('people/10', "person" => hash_including(:id => 10, :first_name=>"Steve")).
@@ -60,8 +60,8 @@ describe NationBuilder::PeopleController do
     end
 
     it "returns false on validation errors" do
-      person = NationBuilder::Model::Person.new(:id => 10, :first_name => "Steve", :email => 'taken@email.com')
-      oauth_client.should_receive(:put).and_raise(NationBuilder::OauthClient::ValidationError.new({"email"=>[{"type"=>"taken"}]}))
+      person = Nationbuilder::Model::Person.new(:id => 10, :first_name => "Steve", :email => 'taken@email.com')
+      oauth_client.should_receive(:put).and_raise(Nationbuilder::OauthClient::ValidationError.new({"email"=>[{"type"=>"taken"}]}))
 
       expect {
         people_controller.save(person).should be_false
@@ -70,7 +70,7 @@ describe NationBuilder::PeopleController do
     end
 
     it "clears validation errors on success" do
-      person = NationBuilder::Model::Person.new(:id => 10, :first_name => "Steve")
+      person = Nationbuilder::Model::Person.new(:id => 10, :first_name => "Steve")
       person.errors.add(:email, "is bogus")
 
       oauth_client.should_receive(:put).

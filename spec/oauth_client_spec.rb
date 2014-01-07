@@ -1,7 +1,7 @@
-require_relative '../spec_helper.rb'
+require 'spec_helper'
 
-describe NationBuilder::OauthClient do
-  let(:oauth_client) { NationBuilder::OauthClient.new("key", "secret", "token", "http://abeforprez.nbuild.dev") }
+describe Nationbuilder::OauthClient do
+  let(:oauth_client) { Nationbuilder::OauthClient.new("key", "secret", "token", "http://abeforprez.nbuild.dev") }
   let(:token) { double }
 
   before do
@@ -49,7 +49,7 @@ describe NationBuilder::OauthClient do
 
       expect {
         oauth_client.put("potatoes", :person => {:email => "existing@email.com"})
-      }.to raise_error NationBuilder::OauthClient::ValidationError
+      }.to raise_error Nationbuilder::OauthClient::ValidationError
     end
   end
 

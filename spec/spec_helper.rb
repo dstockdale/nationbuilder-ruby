@@ -3,8 +3,6 @@ require 'rspec'
 require 'simplecov'
 SimpleCov.start
 
-require 'nation_builder/client'
+require 'nationbuilder'
 
-class MockOauthClient
-
-end
+class MockOauthClient; end
