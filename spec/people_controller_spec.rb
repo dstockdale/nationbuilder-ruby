@@ -1,11 +1,12 @@
 require 'spec_helper'
 
-# XXX TODO: most of these tests could be factored into a "controller spec" which applies to all types
 describe Nationbuilder::PeopleController do
+
   let(:oauth_client) { MockOauthClient.new }
   let(:people_controller) { Nationbuilder::PeopleController.new(oauth_client) }
 
   describe "#list" do
+
     it "retrieves a list of people" do
       people_list = {
         "results" => [
@@ -24,16 +25,20 @@ describe Nationbuilder::PeopleController do
       oauth_client.should_receive(:get).with('people', {page: 2}).and_return({"results" => []})
       people_controller.list(page: 2)
     end
+
   end
 
   describe "#find" do
+
     it "retrieves a single person" do
       oauth_client.should_receive(:get).with('people/5').and_return({"person" => {}})
       people_controller.find(5)
     end
+
   end
 
   describe "#save" do
+
     it "saves a new person and sets their ID" do
       person = Nationbuilder::Model::Person.new(:first_name => "Steve")
 
@@ -80,17 +85,7 @@ describe Nationbuilder::PeopleController do
 
       person.errors.should be_empty
     end
+
   end
 
-  # it "handles authentication errors" do
-  #   pending
-  #   rejection = {
-  #                 "code" => "unauthorized",
-  #                 "message" => "You are not authorized to access this content. Your access token may be missing. The resource owner also may not have a permission level sufficient to grant access."
-  #               }
-  #   token.should_receive(:get).with("/api/v1/people") do |thing|
-  #     #thing...
-  #   end
-  #   client.stub(:token => token)
-  # end
 end

@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Nationbuilder::OauthClient do
+
   let(:oauth_client) { Nationbuilder::OauthClient.new("key", "secret", "token", "http://abeforprez.nbuild.dev") }
   let(:token) { double }
 
@@ -21,9 +22,11 @@ describe Nationbuilder::OauthClient do
 
       response["field"].should == "value"
     end
+
   end
 
   describe "#put" do
+
     let(:response) { double(:body => {field: 'value'}.to_json) }
 
     it "put the data using V1 API, and returns parsed JSON response" do
@@ -51,9 +54,11 @@ describe Nationbuilder::OauthClient do
         oauth_client.put("potatoes", :person => {:email => "existing@email.com"})
       }.to raise_error Nationbuilder::OauthClient::ValidationError
     end
+
   end
 
   describe "#post" do
+
     let(:response) { double(:body => {field: 'value'}.to_json) }
 
     it "posts the data using V1 API, and returns parsed JSON response" do
@@ -65,5 +70,7 @@ describe Nationbuilder::OauthClient do
 
       response["field"].should == "value"
     end
+
   end
+
 end
