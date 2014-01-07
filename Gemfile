@@ -9,6 +9,5 @@ group :development do
   gem 'rdoc', '~> 4.1.0'
   gem 'rspec', '~> 2.14.1'
   gem 'simplecov', '~> 0.8.2'
-  gem 'simplecov', '~> 0.8.2'
   gem 'vcr', '~> 2.8.0'
 end

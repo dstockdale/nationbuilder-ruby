@@ -1,5 +1,6 @@
 # nationbuilder-ruby
 
+[![Build Status](https://travis-ci.org/3dna/nationbuilder-ruby.png?branch=master)](https://travis-ci.org/3dna/nationbuilder-ruby)
 [![Code Climate](https://codeclimate.com/github/3dna/nationbuilder-ruby.png)](https://codeclimate.com/github/3dna/nationbuilder-ruby)
 
 A Ruby client for the NationBuilder API.

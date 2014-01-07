@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
+    "README.md",
     "Rakefile",
     "VERSION",
     "lib/nationbuilder.rb",
@@ -68,7 +69,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rdoc>, ["~> 4.1.0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.14.1"])
       s.add_development_dependency(%q<simplecov>, ["~> 0.8.2"])
-      s.add_development_dependency(%q<simplecov>, ["~> 0.8.2"])
       s.add_development_dependency(%q<vcr>, ["~> 2.8.0"])
     else
       s.add_dependency(%q<activemodel>, ["~> 4.0.2"])
@@ -77,7 +77,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["~> 2.0.0"])
       s.add_dependency(%q<rdoc>, ["~> 4.1.0"])
       s.add_dependency(%q<rspec>, ["~> 2.14.1"])
-      s.add_dependency(%q<simplecov>, ["~> 0.8.2"])
       s.add_dependency(%q<simplecov>, ["~> 0.8.2"])
       s.add_dependency(%q<vcr>, ["~> 2.8.0"])
     end
@@ -88,7 +87,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, ["~> 2.0.0"])
     s.add_dependency(%q<rdoc>, ["~> 4.1.0"])
     s.add_dependency(%q<rspec>, ["~> 2.14.1"])
-    s.add_dependency(%q<simplecov>, ["~> 0.8.2"])
     s.add_dependency(%q<simplecov>, ["~> 0.8.2"])
     s.add_dependency(%q<vcr>, ["~> 2.8.0"])
   end
