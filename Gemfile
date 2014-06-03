@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'activemodel', '~> 4.0.2'
+gem 'activemodel', '~> 4.1.1'
 gem 'oauth2', '~> 0.9.2'
 gem 'virtus', '~> 1.0.1'
 
